@@ -23,9 +23,18 @@
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/swagger": "^5.0.9",
+    "@types/argon2": "^0.15.0",
+    "@types/bunyan": "^1.8.7",
+    "@types/pg": "^8.6.1",
+    "argon2": "^0.28.2",
+    "bunyan": "^1.8.15",
+    "class-validator": "^0.13.1",
+    "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
