@@ -1,10 +1,18 @@
-import { Param } from '@nestjs/common';
-import { Put } from '@nestjs/common';
-import { Delete } from '@nestjs/common';
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { ApiTags } from '@nestjs/swagger';
-import { UserEntity } from './user.entity';
-import { UserService } from './user.service';
+import { UserEntity } from './entity';
+import { UserService } from './service';
 
 @ApiTags('user')
 @Controller()
@@ -13,16 +21,17 @@ export class UserController {
 
   @Get('/users')
   async findUsers() {
-    const data = (await this.userService.findAll()).map((x) => {
+    return (await this.userService.findAll()).map((x) => {
       delete x.password;
       return x;
     });
-    return data;
   }
 
   @Get('/user/:id')
   async findUser(@Param() params) {
-    return await this.userService.find(Number(params.id));
+    const data = await this.userService.find(Number(params.id));
+    delete data.password;
+    return data;
   }
 
   @Post('/user')
@@ -63,7 +72,7 @@ export class UserController {
     );
 
     if (oldPasswordIsValid || !password) {
-      userEntityUpdateData.hashPassword();
+      await userEntityUpdateData.hashPassword();
       return await this.userService.update(
         Number(params.id),
         userEntityUpdateData,
@@ -77,6 +86,31 @@ export class UserController {
 
   @Delete('/user/:id')
   async deleteUser(@Param() params) {
-    return await this.userService.delete(Number(params.id));
+    const data = await this.userService.delete(Number(params.id));
+    delete data.password;
+    return data;
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post('/me/palette/:codePalette')
+  async savePalette(@Request() req, @Param() params) {
+    return await this.userService.savePalette(
+      Number(req.user.code),
+      Number(params.codePalette),
+    );
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('/me/palettes')
+  async findPalettes(@Request() req) {
+    return await this.userService.findAllPalettes(Number(req.user.code));
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('/me')
+  async findMe(@Request() req) {
+    const data = await this.userService.find(req.user.code);
+    delete data.password;
+    return data;
   }
 }

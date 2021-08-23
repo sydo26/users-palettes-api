@@ -1,12 +1,12 @@
 // import { MiddlewareConsumer, NestModule } from '@nestjs/common';
 import { Module } from '@nestjs/common';
-import { UserController } from './user.controller';
-import { UserService } from './user.service';
+import { PaletteController } from './controller';
+import { PaletteService } from './service';
 import { DbModule } from '../../services/db';
 
 @Module({
   imports: [DbModule],
-  controllers: [UserController],
-  providers: [UserService],
+  controllers: [PaletteController],
+  providers: [PaletteService],
 })
-export class UserModule {}
+export class PaletteModule {}

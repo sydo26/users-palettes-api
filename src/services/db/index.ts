@@ -1,17 +1,16 @@
 import { Module } from '@nestjs/common';
-import pg, { Pool } from 'pg';
+import { Pool } from 'pg';
 import * as fs from 'fs/promises';
 import * as path from 'path';
-import * as logger from 'bunyan';
 
 export const dataBaseProvider = {
   provide: 'PG_CONNECTION',
   useValue: new Pool({
-    user: 'root',
-    host: '127.0.0.1',
-    database: 'mypalettes',
-    password: 'root',
-    port: 5432,
+    user: process.env.PG_USER,
+    host: process.env.PG_HOST,
+    database: process.env.PG_DATABASE,
+    password: process.env.PG_PASSWORD,
+    port: Number(process.env.PG_PASSWORD),
   }),
 };
 

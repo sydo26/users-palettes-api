@@ -1,73 +1,53 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+## Requisitos
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Criar um arquivo chamado `.env` contendo os dados para conexão do banco de dados postgresql. Ex: `example.env`
 
-## Description
+```env
+PG_USER=root
+PG_PASSWORD=root
+PG_DATABASE=mydb
+PG_PORT=5432
+PG_HOST=127.0.0.1
+```
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Também é necessário ter `nodejs` instalado na máquina, de preferência na versão `14.x`.
 
-## Installation
+## Descrição
+
+Esta aplicação é direcionada para o projeto final da cadeira de Fundamentos de Banco de Dados, na UFC de Quixadá.
+
+## Instalação
 
 ```bash
+# Com npm
 $ npm install
+
+# Com yarn
+$ yarn install
 ```
 
-## Running the app
+## Rodar o aplicativo
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
+# Com npm
 $ npm run start:prod
+
+# Com yarn
+$ yarn start:prod
 ```
 
-## Test
+## Considerações
+
+A raiz é em `localhost:3000` e o endpoint da api rest fica em `localhost:3000/api`
+
+Os testes foram feito no sistema `Ubuntu 20.04 LTS` com a utilização de um banco `PostgreSql` local com o `Docker`.
+
+Comando para abrir a instância do postgre no docker:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+$ docker run --name pgsql -p 5432:5432 -e POSTGRES_PASSWORD=root -e POSTGRES_USER=root -e POSTGRES_DB=mypalette -d postgres
 ```
 
-## Support
+Ao entrar na rota `localhost:3000/docs` será mostrado todas as possíveis chamadas da api, mesmo que não com muitos detalhes pois esse não era o foco do projeto final.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-  Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+As chamadas da api foram testadas usando o aplicativo `Insominia`. Deixarei um arquivo de um projeto insominia contendo todas as chamdas, nome do arquivo é `Insomnia_2021-08-22.json`.

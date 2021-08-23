@@ -1,19 +1,20 @@
-import { Controller, Get, Inject } from '@nestjs/common';
-import { Pool } from 'pg';
-import { getSetupQuery } from '../services/db';
+import { Controller, Post, UseGuards, Request, Get } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { AuthService } from './auth/service';
 
 @Controller()
 export class AppController {
-  constructor(@Inject('PG_CONNECTION') private con: Pool) {}
+  constructor(private authService: AuthService) {}
 
-  @Get()
-  getHello(): string {
-    return 'api';
+  @UseGuards(AuthGuard('jwt'))
+  @Get('protected')
+  async teste(@Request() req) {
+    return { message: 'Ok', user: req.user };
   }
 
-  @Get('setup')
-  async setup() {
-    const query = await getSetupQuery();
-    return await this.con.query(query);
+  @UseGuards(AuthGuard('local'))
+  @Post('auth/login')
+  async login(@Request() req) {
+    return await this.authService.login(req.user.code, req.user.email);
   }
 }
