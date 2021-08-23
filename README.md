@@ -30,9 +30,11 @@ $ yarn install
 
 ```bash
 # Com npm
+$ npm run build
 $ npm run start:prod
 
 # Com yarn
+$ yarn build
 $ yarn start:prod
 ```
 
